@@ -1,0 +1,31 @@
+.navbar {
+    background-color: #4CAF50; /* Зелёный фон */
+    padding: 10px;
+    color: white;
+    position: fixed; /* Фиксируем панель навигации */
+    bottom: 0; /* Устанавливаем ее внизу */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center; /* Центрируем содержимое */
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin: 0 20px; /* Убираем левый и правый отступы */
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar ul li a:hover {
+    text-decoration: underline;
+}
