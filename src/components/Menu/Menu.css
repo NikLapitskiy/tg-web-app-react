@@ -1,0 +1,55 @@
+.menu-categories {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .menu-categories button {
+    background-color: #f2f2f2;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .menu-categories button.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .menu-filters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .menu-filters input,
+  .menu-filters select {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .menu-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .menu-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .menu-item img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .order-button {
+    text-align: center;
+    margin-top: 20px;
+  }

@@ -1,0 +1,10 @@
+nav {
+    display: flex;
+    justify-content: center;
+  }
+  
+  nav a {
+    color: #4CAF50;
+    text-decoration: none;
+    margin: 0 10px;
+  }

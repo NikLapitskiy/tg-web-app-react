@@ -7,5 +7,8 @@
 body {
   background: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color);
-  padding-bottom: 60px; /* Увеличиваем нижний отступ для панель навигации */
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
