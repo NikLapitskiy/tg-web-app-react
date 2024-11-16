@@ -27,6 +27,12 @@ function App() {
             </Routes>
             <Navbar />
           </div>
+
+    );
+}
+  
+export default App;
+
               //   <Router>
               //   <div className="app">
               //     <Routes>
@@ -38,12 +44,6 @@ function App() {
               //     <Navbar />
               //   </div>
               // </Router>
-    );
-}
-  
-export default App;
-
-
     // return (
     //     <div className="App">
     //         <Header />
