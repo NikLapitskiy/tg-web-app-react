@@ -6,6 +6,7 @@ import MenuCategories from './MenuCategories';
 import MenuItems from './MenuItems';
 // import OrderButton from './OrderButton';
 import { useTelegram } from '../../hooks/useTelegram';
+import Navbar from '../Navbar/Navbar';
 
 const API_BASE_URL = 'http://localhost:8000';
 
@@ -20,7 +21,6 @@ const Menu = () => {
         try {
             const response = await axios.get(`${API_BASE_URL}/categories`);
             const data = await response.data; // Получаем данные из ответа
-            console.log(data);
             setMenuCategories(data); // Обновляем состояние компонента
         } catch (error) {
             console.error('Ошибка при загрузке категорий:', error);
@@ -35,7 +35,6 @@ const Menu = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/menu`);
         const data = await response.data;
-        console.log(data);
         setMenuItems(data);
       } catch (error) {
         console.error('Ошибка при загрузке меню:', error);
@@ -49,6 +48,7 @@ const Menu = () => {
     <div className="menu">
       <MenuCategories menuCategories={menuCategories} />
       <MenuItems menuItems={menuItems} />
+      <Navbar />
     </div>
   );
 };
