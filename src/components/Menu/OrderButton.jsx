@@ -1,7 +1,20 @@
 import React from 'react';
 
-const OrderModal = ({ selectedItem, handleAddToCart }) => {
-  // Компонент для отображения модального окна с информацией о блюде
+const OrderButton = ({ totalPrice, cart }) => {
+  const handlePlaceOrder = () => {
+    // Логика оформления заказа
+    console.log('Оформление заказа:', cart);
+    alert(`Вы оформили заказ на сумму ${totalPrice} ₽`);
+  };
+
+  return (
+    <div className="order-button">
+      <p>Итого: {totalPrice} ₽</p>
+      <button onClick={handlePlaceOrder} disabled={cart.length === 0}>
+        Оформить заказ
+      </button>
+    </div>
+  );
 };
 
-export default OrderModal;
+export default OrderButton;
