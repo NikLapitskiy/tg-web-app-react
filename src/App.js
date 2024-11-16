@@ -6,7 +6,7 @@ import Settings from './components/Settings/Settings';
 import Navbar from './components/Navbar/Navbar';
 import './App.css'
 
-const API_BASE_URL = 'ttps://effortless-blancmange-d0fc57.netlify.app';
+const API_BASE_URL = 'https://effortless-blancmange-d0fc57.netlify.app';
 
 
 function App() {
