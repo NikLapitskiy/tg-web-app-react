@@ -1,11 +1,12 @@
 import './App.css';
-import { useEffect } from 'react';
-import {useTelegram} from './hooks/useTelegram'
+import React, { useEffect } from 'react';
+import { useTelegram } from 'telegram-web-app';
+// import {useTelegram} from './hooks/useTelegram'
 import {Route, Routes } from 'react-router-dom';
 import Menu from './components/Menu/Menu';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
-import Navbar from './components/Navbar/Navbar';
+// import Navbar from './components/Navbar/Navbar';
 
 
 // const API_BASE_URL = 'https://effortless-blancmange-d0fc57.netlify.app';
