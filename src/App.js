@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { useTelegram } from 'telegram-web-app';
-// import {useTelegram} from './hooks/useTelegram'
+// import { useTelegram } from 'telegram-web-app';
+import {useTelegram} from './hooks/useTelegram'
 import {Route, Routes } from 'react-router-dom';
 import Menu from './components/Menu/Menu';
 import Profile from './components/Profile/Profile';
