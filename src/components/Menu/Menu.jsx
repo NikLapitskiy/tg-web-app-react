@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Menu.css';
 import MenuCategories from './MenuCategories';
-import MenuFilters from './MenuFilters';
+// import MenuFilters from './MenuFilters';
 import MenuItems from './MenuItems';
-import OrderButton from './OrderButton';
+// import OrderButton from './OrderButton';
 import { useTelegram } from '../../hooks/useTelegram';
 
 const API_BASE_URL = 'http://localhost:8000';
@@ -20,6 +20,7 @@ const Menu = () => {
         try {
             const response = await axios.get(`${API_BASE_URL}/categories`);
             const data = await response.data; // Получаем данные из ответа
+            console.log(data);
             setMenuCategories(data); // Обновляем состояние компонента
         } catch (error) {
             console.error('Ошибка при загрузке категорий:', error);
@@ -34,6 +35,7 @@ const Menu = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/menu`);
         const data = await response.data;
+        console.log(data);
         setMenuItems(data);
       } catch (error) {
         console.error('Ошибка при загрузке меню:', error);
