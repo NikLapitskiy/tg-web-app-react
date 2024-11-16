@@ -6,7 +6,7 @@ import Settings from './components/Settings/Settings';
 import Navbar from './components/Navbar/Navbar';
 import './App.css'
 
-const API_BASE_URL = 'https://effortless-blancmange-d0fc57.netlify.app';
+// const API_BASE_URL = 'https://effortless-blancmange-d0fc57.netlify.app';
 
 
 function App() {
@@ -19,15 +19,21 @@ function App() {
         <Router>
           <div className="app">
             <Routes>
-              <Route path="/menu" component={Menu} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/settings" component={Settings} />
-              <Route path="/" component={Menu} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/" element={<Menu />} />
             </Routes>
             <Navbar />
           </div>
         </Router>
     );
+
+}
+  
+export default App;
+
+
     // return (
     //     <div className="App">
     //         <Header />
@@ -37,9 +43,6 @@ function App() {
     //         </Routes>
     //     </div>
     // );
-}
-  
-export default App;
 
 // import './App.css';
 // import {useEffect} from "react";
