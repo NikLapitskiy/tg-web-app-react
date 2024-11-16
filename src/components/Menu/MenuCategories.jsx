@@ -6,8 +6,8 @@ const MenuCategories = ({ menuCategories, selectedCategory, setSelectedCategory 
         {menuCategories.map(category => (
           <button
             key={category.id}
-            className={selectedCategory === category.id ? 'active' : ''}
-            onClick={() => setSelectedCategory(category.id)}
+            className={selectedCategory === category.name ? 'active' : ''}
+            onClick={() => setSelectedCategory(category.name)}
           >
             {category.name}
           </button>
