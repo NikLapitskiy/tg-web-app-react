@@ -3,10 +3,9 @@ import axios from 'axios';
 import MenuCategories from './MenuCategories';
 import MenuFilters from './MenuFilters';
 import MenuItems from './MenuItems';
-import OrderModal from './OrderButton';
 import OrderButton from './OrderButton';
 
-const API_BASE_URL = 'https://your-api.com/';
+const API_BASE_URL = 'https://effortless-blancmange-d0fc57.netlify.app';
 
 const Menu = () => {
     const [menuCategories, setMenuCategories] = useState([]);
