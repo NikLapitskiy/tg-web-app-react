@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {useTelegram} from './hooks/useTelegram'
 import Menu from './components/Menu/Menu';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
