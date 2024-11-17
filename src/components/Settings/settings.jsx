@@ -5,7 +5,6 @@ const Settings = () => {
   return (
     <div className="settings">
       <h1>Настройки</h1>
-      {/* Добавьте настройки пользователя */}
     </div>
   );
 };
