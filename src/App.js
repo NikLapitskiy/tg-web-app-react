@@ -7,6 +7,7 @@ import Menu from './components/Menu/Menu';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 // import Navbar from './components/Navbar/Navbar';
+import BackButton from './components/BackButton/BackButton';
 
 
 // const API_BASE_URL = 'https://effortless-blancmange-d0fc57.netlify.app';
@@ -20,6 +21,7 @@ function App() {
     }, [tg])
     return (
           <div className="app">
+            <BackButton />
             <Routes>
               <Route index element={<Menu />} />
               <Route path="/menu" element={<Menu />} />
