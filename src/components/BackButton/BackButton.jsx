@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BackButton = () => {
+    const navigate = useNavigate();
+
     const handleBackClick = () => {
-        // Закрывает текущее окно мини-приложения
-        Telegram.WebApp.close();
+        // Возвращаемся на предыдущую страницу
+        navigate(-1);
     };
 
     return (
