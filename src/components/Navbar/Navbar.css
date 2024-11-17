@@ -1,11 +1,19 @@
 nav {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  nav a {
-    color: #4CAF50;
-    text-decoration: none;
-    margin: 0 10px;
-  }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 0; 
+  background-color: rgba(4, 1, 6, 0,2); 
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
+  padding: 10px 0;
+  z-index: 1000; 
+}
+
+nav a {
+  color: #081e3b;
+  text-decoration: none;
+  margin: 0 10px;
+}

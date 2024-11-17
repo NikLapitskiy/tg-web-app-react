@@ -4,8 +4,8 @@ import React, { useEffect } from 'react';
 import {useTelegram} from './hooks/useTelegram'
 import {Route, Routes } from 'react-router-dom';
 import Menu from './components/Menu/Menu';
-// import Profile from './components/Profile/Profile';
-// import Settings from './components/Settings/Settings';
+import Profile from './components/Profile/Profile';
+import Settings from './components/Settings/Settings';
 // import Navbar from './components/Navbar/Navbar';
 
 
@@ -23,6 +23,8 @@ function App() {
             <Routes>
               <Route index element={<Menu />} />
               <Route path="/menu" element={<Menu />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </div>
     );
