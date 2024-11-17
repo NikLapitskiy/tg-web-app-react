@@ -105,68 +105,70 @@ const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className="menu">
-        <button className="open-modal-button" onClick={openModal}>
-            Открыть настройки
-        </button>
+    <button className="open-modal-button" onClick={openModal}>
+        Открыть настройки
+    </button>
 
-        {isModalOpen && (
-            <div className="modal">
-                <div className="modal-content">
-                    <span className="close" onClick={closeModal}>&times;</span>
-                    <div className="search-bar">
+    {isModalOpen && (
+        <div className="modal">
+            <div className="modal-content">
+                <span className="close" onClick={closeModal}>&times;</span>
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Поиск по товарам..."
+                        value={searchQuery}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            filterItems(selectedCategory, minPrice, maxPrice);
+                        }}
+                    />
+                </div>
+
+                <div className="price-filter">
+                    <label>
+                        Минимальная цена:
                         <input
-                            type="text"
-                            placeholder="Поиск по товарам..."
-                            value={searchQuery}
+                            type="number"
+                            value={minPrice}
                             onChange={(e) => {
-                                setSearchQuery(e.target.value);
-                                filterItems(selectedCategory, minPrice, maxPrice);
+                                const value = e.target.value ? parseFloat(e.target.value) : 0;
+                                setMinPrice(value);
+                                filterItems(selectedCategory, value, maxPrice);
                             }}
                         />
-                    </div>
+                    </label>
+                    <label>
+                        Максимальная цена:
+                        <input
+                            type="number"
+                            value={maxPrice}
+                            onChange={(e) => {
+                                const value = e.target.value ? parseFloat(e.target.value) : Infinity;
+                                setMaxPrice(value);
+                                filterItems(selectedCategory, minPrice, value);
+                            }}
+                        />
+                    </label>
+                </div>
 
-                    <div className="price-filter">
-                        <label>
-                            Минимальная цена:
-                            <input
-                                type="number"
-                                value={minPrice}
-                                onChange={(e) => {
-                                    setMinPrice(e.target.value);
-                                    filterItems(selectedCategory, e.target.value, maxPrice);
-                                }}
-                            />
-                        </label>
-                        <label>
-                            Максимальная цена:
-                            <input
-                                type="number"
-                                value={maxPrice}
-                                onChange={(e) => {
-                                    setMaxPrice(e.target.value);
-                                    filterItems(selectedCategory, minPrice, e.target.value);
-                                }}
-                            />
-                        </label>
-                    </div>
-
-                    <div className="sort-options">
-                        <label>
-                            Сортировать по цене:
-                            <select onChange={(e) => handleSortOrderChange(e.target.value)} value={sortOrder}>
-                                <option value="asc">По возрастанию</option>
-                                <option value="desc">По убыванию</option>
-                            </select>
-                        </label>
-                    </div>
+                <div className="sort-options">
+                    <label>
+                        Сортировать по цене:
+                        <select onChange={(e) => handleSortOrderChange(e.target.value)} value={sortOrder}>
+                            <option value="asc">По возрастанию</option>
+                            <option value="desc">По убыванию</option>
+                        </select>
+                    </label>
                 </div>
             </div>
-        )}
+        </div>
+    )}
 
-        <MenuCategories menuCategories={menuCategories} onCategoryClick={handleCategoryClick} />
-        <MenuItems menuItems={menuItems} />
-        <Navbar />
-    </div>
+    <MenuCategories menuCategories={menuCategories} onCategoryClick={handleCategoryClick} />
+    <MenuItems menuItems={menuItems} />
+    <Navbar />
+</div>
   );
 };
 
