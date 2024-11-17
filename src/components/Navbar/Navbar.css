@@ -1,19 +1,34 @@
 nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  margin-top: 0; 
-  background-color: rgba(4, 1, 6, 0,2); 
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
-  padding: 10px 0;
-  z-index: 1000; 
+  position: fixed; /* Фиксируем позицию */
+  bottom: 0; /* Прикрепляем к нижней части экрана */
+  left: 0; /* Сдвигаем влево */
+  right: 0; /* Сдвигаем вправо */
+  display: flex; /* Используем Flexbox для выравнивания */
+  justify-content: center; /* Выравниваем элементы по центру */
+  background-color: white; /* Цвет фона для навигации */
+  padding: 10px 0; /* Вертикальные отступы */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Тень для отделения от контента */
+  z-index: 1000; /* Обеспечиваем, чтобы навигация была поверх других элементов */
+}
+
+nav div {
+  padding: 10px 15px; /* Отступы внутри прямоугольников */
+  border: 2px solid #4CAF50; /* Цвет и толщина границы */
+  border-radius: 5px; /* Скругление углов прямоугольников */
+  margin: 0; /* Убираем внешние отступы */
+  transition: background-color 0.3s; /* Плавный переход для фона */
+}
+
+nav div:not(:last-child) {
+  border-right: none; /* Убираем правую границу для всех, кроме последнего элемента */
+}
+
+nav div:hover {
+  background-color: #f0f0f0; /* Цвет фона при наведении */
 }
 
 nav a {
-  color: #081e3b;
-  text-decoration: none;
-  margin: 0 10px;
+  color: #4CAF50; /* Цвет текста ссылок */
+  text-decoration: none; /* Убираем подчеркивание */
+  display: block; /* Делаем ссылку блочным элементом для полной области клика */
 }

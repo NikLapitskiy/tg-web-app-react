@@ -1,21 +1,25 @@
 .menu-categories {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-  
-  .menu-categories button {
-    background-color: #f2f2f2;
-    border: none;
-    padding: 10px 20px;
-    margin: 0 5px;
-    cursor: pointer;
-  }
-  
-  .menu-categories button.active {
-    background-color: #4CAF50;
-    color: white;
-  }
+  display: flex; /* Используем Flexbox для выравнивания кнопок горизонтально */
+  overflow-x: auto; /* Позволяем прокручивать содержимое по горизонтали */
+  white-space: nowrap; /* Запрещаем перенос строк, чтобы кнопки оставались в одной строке */
+  padding: 10px; /* Отступы вокруг категорий */
+  scrollbar-width: thin; /* Уменьшаем ширину полосы прокрутки (для Firefox) */
+}
+
+/* Стили для кнопок категорий */
+.category-button {
+  margin-right: 10px; /* Отступ между кнопками */
+  padding: 10px 15px; /* Внутренние отступы кнопок */
+  border: 2px solid #4CAF50; /* Граница кнопок */
+  border-radius: 5px; /* Скругление углов кнопок */
+  background-color: white; /* Цвет фона кнопок */
+  cursor: pointer; /* Указываем, что кнопка кликабельная */
+  transition: background-color 0.3s; /* Плавный переход для фона */
+}
+
+.category-button:hover {
+  background-color: #f0f0f0; /* Цвет фона при наведении */
+}
   
   .menu-filters {
     display: flex;
