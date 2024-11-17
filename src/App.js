@@ -23,8 +23,6 @@ function App() {
             <Routes>
               <Route index element={<Menu />} />
               <Route path="/menu" element={<Menu />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<Settings />} />
             </Routes>
           </div>
     );
