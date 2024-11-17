@@ -1,10 +1,20 @@
 import React from 'react';
 
-const MenuCategories = ({ menuCategories }) => {
+const MenuCategories = ({ menuCategories, onCategoryClick }) => {
   return (
     <div className="menu-categories">
+      <button
+        className="category-button"
+        onClick={() => onCategoryClick(null)} // Передаем null для отображения всех товаров
+      >
+        Все
+      </button>
       {menuCategories.map((category) => (
-        <button key={category.id} className="category-button">
+        <button
+          key={category.id}
+          className="category-button"
+          onClick={() => onCategoryClick(category)}
+        >
           {category.name}
         </button>
       ))}
@@ -13,6 +23,7 @@ const MenuCategories = ({ menuCategories }) => {
 };
 
 export default MenuCategories;
+
 
 
 
