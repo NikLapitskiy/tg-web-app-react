@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import './Menu.css';
 import MenuCategories from './MenuCategories';
@@ -21,7 +21,6 @@ const Menu = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cart, setCart] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -105,69 +104,6 @@ const filterItems = (category, min, max) => {
 const openModal = () => setIsModalOpen(true);
 const closeModal = () => setIsModalOpen(false);
 
-
-const handleAddToCart = (item) => {
-  setCart((prevCart) => {
-    const currentQuantity = prevCart[item.id] || 0;
-    const newCart = {
-      ...prevCart,
-      [item.id]: currentQuantity + 1,
-    };
-    calculateTotalPrice(newCart);
-    return newCart;
-  });
-};
-
-const handleRemoveFromCart = (item) => {
-  setCart((prevCart) => {
-    const currentQuantity = prevCart[item.id] || 0;
-    if (currentQuantity > 1) {
-      const newCart = {
-        ...prevCart,
-        [item.id]: currentQuantity - 1,
-      };
-      calculateTotalPrice(newCart);
-      return newCart;
-    } else {
-      const newCart = { ...prevCart };
-      delete newCart[item.id];
-      calculateTotalPrice(newCart);
-      return newCart;
-    }
-  });
-};
-
-const calculateTotalPrice = (cart) => {
-  const total = Object.entries(cart).reduce((acc, [id, quantity]) => {
-    const item = allMenuItems.find(item => item.id === parseInt(id));
-    return item ? acc + (item.price * quantity) : acc;
-  }, 0);
-  setTotalPrice(total);
-};
-
-  const handleMakeOrder = () => {
-    if (Object.keys(cart).length === 0) {
-      alert("Корзина пуста! Добавьте товары перед оформлением заказа.");
-      return;
-    }
-
-    const orderDetails = Object.entries(cart).map(([id, quantity]) => {
-      const item = allMenuItems.find(item => item.id === parseInt(id));
-      return item ? {
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        quantity,
-      } : null;
-    }).filter(item => item !== null);
-
-    console.log('Заказ оформлен:', orderDetails);
-    alert(`Ваш заказ на сумму ${totalPrice} ₽ успешно оформлен!`);
-
-    setCart({});
-    setTotalPrice(0);
-  };
-
   return (
     <div className="menu">
     <div className="open-modal-button" onClick={openModal}>
@@ -230,115 +166,16 @@ const calculateTotalPrice = (cart) => {
         </div>
     )}
 
+
+
       <MenuCategories menuCategories={menuCategories} onCategoryClick={handleCategoryClick} />
       <MenuItems
               menuItems={menuItems}
               cart={cart}
-              onAddToCart={handleAddToCart}
-              onRemoveFromCart={handleRemoveFromCart}
             />
-            {Object.keys(cart).length > 0 && (
-              <OrderButton onMakeOrder={handleMakeOrder} totalPrice={totalPrice} />
-            )}
             <Navbar />
-            {/* <Navbar cart={cart} /> */}
       </div>
         );
       };
 
 export default Menu;
-
-// const getTotalPrice = (items = []) => {
-//   return items.reduce((acc, item) => {
-//     return acc += item.price
-//   }, 0)
-// }
-
-// const Menu = () => {
-//   const [addedItems, setAddedItems] = useState([]);
-//   const [menuCategories, setMenuCategories] = useState([]);
-//   const [selectedCategory, setSelectedCategory] = useState(null);
-//   const [menuItems, setMenuItems] = useState([]);
-//   const [filteredItems, setFilteredItems] = useState([]);
-//   const [searchText, setSearchText] = useState('');
-//   const [sortBy, setSortBy] = useState('name');
-//   const [cart, setCart] = useState([]);
-//   const [totalPrice, setTotalPrice] = useState(0);
-  
-//   const { tg } = useTelegram();
-
-//   // Загрузка категорий
-//   useEffect(() => {
-//     const fetchMenuCategories = async () => {
-//         try {
-//             const response = await axios.get(`${API_BASE_URL}/categories`);
-//             const data = await response.data; // Получаем данные из ответа
-//             setMenuCategories(data); // Обновляем состояние компонента
-//         } catch (error) {
-//             console.error('Ошибка при загрузке категорий:', error);
-//         }
-//     };
-//     fetchMenuCategories();
-//   }, []);
-
-//   // Загрузка товаров в зависимости от выбранной категории
-//   useEffect(() => {
-//       const fetchMenuItems = async () => {
-//           if (!selectedCategory){
-//             console.log(selectedCategory);
-//             return;
-//           }
-           
-//           try {
-//               console.log(selectedCategory)
-//               const response = await axios.get(`${API_BASE_URL}/menu/category?category=${selectedCategory}`);
-//               setMenuItems(response.data);
-//               setFilteredItems(response.data);
-//           } catch (error) {
-//               console.error('Ошибка при загрузке меню:', error);
-//           }
-//       };
-
-//       fetchMenuItems();
-//   }, [selectedCategory]);
-
-//   // Фильтрация и сортировка товаров
-//   useEffect(() => {
-//       const filteredAndSortedItems = menuItems
-//           .filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()))
-//           .sort((a, b) => (sortBy === 'price' ? a.price - b.price : a.name.localeCompare(b.name)));
-      
-//       setFilteredItems(filteredAndSortedItems);
-//   }, [searchText, sortBy, menuItems]);
-
-//   // Подсчет общей стоимости в корзине
-//   useEffect(() => {
-//       const total = cart.reduce((acc, item) => acc + item.price, 0);
-//       setTotalPrice(total);
-//   }, [cart]);
-
-//   // Добавление товара в корзину
-//   const handleAddToCart = (item) => {
-//       setCart([...cart, item]);
-//   };
-
-//   return (
-//       <div className="menu">
-//           <MenuCategories 
-//               menuCategories={menuCategories} 
-//               selectedCategory={selectedCategory} 
-//               setSelectedCategory={setSelectedCategory} 
-//           />
-//           <MenuFilters 
-//               searchText={searchText} 
-//               setSearchText={setSearchText} 
-//               sortBy={sortBy} 
-//               setSortBy={setSortBy} 
-//           />
-//           <MenuItems filteredItems={filteredItems} handleAddToCart={handleAddToCart} />
-//           <OrderButton totalPrice={totalPrice} cart={cart} />
-//       </div>
-//   );
-// };
-
-// export default Menu;
