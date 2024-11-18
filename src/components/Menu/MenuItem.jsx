@@ -1,15 +1,18 @@
 import React from 'react';
 
-const MenuItem = ({ item, handleAddToCart }) => {
-    return (
-      <div className="menu-item">
-        <img src={item.image} alt={item.name} />
-        <h3>{item.name}</h3>
-        <p>{item.description}</p>
-        <p>Цена: {item.price} ₽</p>
-        <button onClick={() => handleAddToCart(item)}>Добавить в корзину</button>
+const MenuItem = ({ item, onAddToCart, onRemoveFromCart, quantity }) => {
+  return (
+    <div className="menu-item">
+      <h3>{item.name}</h3>
+      <p>{item.description}</p>
+      <span>{item.price} ₽</span>
+      <div className="item-controls">
+        <button onClick={() => onRemoveFromCart(item)}>-</button>
+        <span>{quantity || 0}</span>
+        <button onClick={() => onAddToCart(item)}>+</button>
       </div>
-    );
-  };
-  
-  export default MenuItem;
+    </div>
+  );
+};
+
+export default MenuItem;

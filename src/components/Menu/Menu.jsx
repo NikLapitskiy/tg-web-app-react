@@ -2,13 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Menu.css';
 import MenuCategories from './MenuCategories';
-// import MenuFilters from './MenuFilters';
 import MenuItems from './MenuItems';
-// import OrderButton from './OrderButton';
-import { useTelegram } from '../../hooks/useTelegram';
+import OrderButton from './OrderButton';
+// import { useTelegram } from '../../hooks/useTelegram';
 import Navbar from '../Navbar/Navbar';
 
 const API_BASE_URL = 'http://localhost:8000';
+
 
 const Menu = () => {
   const [allMenuItems, setAllMenuItems] = useState([]); // Состояние для всех товаров
@@ -20,6 +20,8 @@ const Menu = () => {
   const [sortOrder, setSortOrder] = useState('asc'); // 'asc' или 'desc'
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cart, setCart] = useState({});
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -69,7 +71,7 @@ const filterItems = (category, min, max) => {
     filteredItems = filteredItems.filter(item => {
         const price = parseFloat(item.price);
         const minPrice = parseFloat(min) || 0; // Убедитесь, что minPrice — число
-        const maxPrice = parseFloat(max) || filteredItems.price.max(); // Убедитесь, что maxPrice — число
+        const maxPrice = parseFloat(max) || Infinity; // Убедитесь, что maxPrice — число
         return price >= minPrice && price <= maxPrice;
     });
 
@@ -103,11 +105,74 @@ const filterItems = (category, min, max) => {
 const openModal = () => setIsModalOpen(true);
 const closeModal = () => setIsModalOpen(false);
 
+
+const handleAddToCart = (item) => {
+  setCart((prevCart) => {
+    const currentQuantity = prevCart[item.id] || 0;
+    const newCart = {
+      ...prevCart,
+      [item.id]: currentQuantity + 1,
+    };
+    calculateTotalPrice(newCart);
+    return newCart;
+  });
+};
+
+const handleRemoveFromCart = (item) => {
+  setCart((prevCart) => {
+    const currentQuantity = prevCart[item.id] || 0;
+    if (currentQuantity > 1) {
+      const newCart = {
+        ...prevCart,
+        [item.id]: currentQuantity - 1,
+      };
+      calculateTotalPrice(newCart);
+      return newCart;
+    } else {
+      const newCart = { ...prevCart };
+      delete newCart[item.id];
+      calculateTotalPrice(newCart);
+      return newCart;
+    }
+  });
+};
+
+const calculateTotalPrice = (cart) => {
+  const total = Object.entries(cart).reduce((acc, [id, quantity]) => {
+    const item = allMenuItems.find(item => item.id === parseInt(id));
+    return item ? acc + (item.price * quantity) : acc;
+  }, 0);
+  setTotalPrice(total);
+};
+
+  const handleMakeOrder = () => {
+    if (Object.keys(cart).length === 0) {
+      alert("Корзина пуста! Добавьте товары перед оформлением заказа.");
+      return;
+    }
+
+    const orderDetails = Object.entries(cart).map(([id, quantity]) => {
+      const item = allMenuItems.find(item => item.id === parseInt(id));
+      return item ? {
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity,
+      } : null;
+    }).filter(item => item !== null);
+
+    console.log('Заказ оформлен:', orderDetails);
+    alert(`Ваш заказ на сумму ${totalPrice} ₽ успешно оформлен!`);
+
+    setCart({});
+    setTotalPrice(0);
+  };
+
   return (
     <div className="menu">
-    <button className="open-modal-button" onClick={openModal}>
-        Открыть настройки
-    </button>
+    <div className="open-modal-button" onClick={openModal}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/></svg>
+    </div>
 
     {isModalOpen && (
         <div className="modal">
@@ -165,12 +230,21 @@ const closeModal = () => setIsModalOpen(false);
         </div>
     )}
 
-    <MenuCategories menuCategories={menuCategories} onCategoryClick={handleCategoryClick} />
-    <MenuItems menuItems={menuItems} />
-    <Navbar />
-</div>
-  );
-};
+      <MenuCategories menuCategories={menuCategories} onCategoryClick={handleCategoryClick} />
+      <MenuItems
+              menuItems={menuItems}
+              cart={cart}
+              onAddToCart={handleAddToCart}
+              onRemoveFromCart={handleRemoveFromCart}
+            />
+            {Object.keys(cart).length > 0 && (
+              <OrderButton onMakeOrder={handleMakeOrder} totalPrice={totalPrice} />
+            )}
+            <Navbar />
+            {/* <Navbar cart={cart} /> */}
+      </div>
+        );
+      };
 
 export default Menu;
 

@@ -6,17 +6,20 @@ nav {
   display: flex; /* Используем Flexbox для выравнивания */
   justify-content: center; /* Выравниваем элементы по центру */
   background-color: white; /* Цвет фона для навигации */
-  padding: 10px 0; /* Вертикальные отступы */
+  padding: 0 0; /* Вертикальные отступы */
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Тень для отделения от контента */
   z-index: 1000; /* Обеспечиваем, чтобы навигация была поверх других элементов */
 }
 
 nav div {
-  padding: 10px 15px; /* Отступы внутри прямоугольников */
-  border: 2px solid #4CAF50; /* Цвет и толщина границы */
-  border-radius: 5px; /* Скругление углов прямоугольников */
+  display: flex;
+  padding: 5px 5px; /* Отступы внутри прямоугольников */
+  border: 0.5px solid #244d81; /* Цвет и толщина границы */
   margin: 0; /* Убираем внешние отступы */
+  width: 25%;
   transition: background-color 0.3s; /* Плавный переход для фона */
+  justify-content: center;
+  align-items: center;
 }
 
 nav div:not(:last-child) {
@@ -28,7 +31,7 @@ nav div:hover {
 }
 
 nav a {
-  color: #4CAF50; /* Цвет текста ссылок */
+  color: #543977; /* Цвет текста ссылок */
   text-decoration: none; /* Убираем подчеркивание */
   display: block; /* Делаем ссылку блочным элементом для полной области клика */
 }

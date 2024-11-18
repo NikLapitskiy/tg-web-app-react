@@ -69,15 +69,20 @@
     top: 20px;
     right: 20px;
     padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
 }
 
-.open-modal-button:hover {
-    background-color: #0056b3;
+.open-modal-button svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.open-modal-button:hover svg {
+  transform: rotate(-90deg);
 }
 
 .modal {

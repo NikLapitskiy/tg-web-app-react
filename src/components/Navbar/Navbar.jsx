@@ -6,13 +6,19 @@ const Navbar = () => {
     return (
         <nav>
           <div>
-            <Link to="/profile">Профиль</Link>
+            <Link to="/shop">Магазины</Link>
           </div>
           <div>
             <Link to="/menu">Меню</Link>
           </div>
           <div>
             <Link to="/settings">Настройки</Link>
+          </div>
+          <div>
+            <Link to="/order">Заказы</Link>
+          </div>
+          <div>
+            <Link to="/profile">Профиль</Link>
           </div>
         </nav>
     );
