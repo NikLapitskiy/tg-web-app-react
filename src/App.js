@@ -53,7 +53,7 @@ function App() {
       tg.ready();
     }, [tg])
     useEffect(() => {
-      if (tg > 0) tg.requestFullscreen();
+      if (tg) tg.requestFullscreen();
     }, [tg])
     return (
       <TelegramWebApp validateHash={validateHash}>
