@@ -13,6 +13,9 @@ export function useTelegram() {
             tg.MainButton.show();
         }
     }
+    const onFullscreen = () => {
+        tg.requestFullscreen();
+    }
 
     return {
         onClose,
