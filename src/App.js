@@ -52,6 +52,16 @@ function App() {
     useEffect(() => {
       tg.ready();
     }, [tg])
+
+      var BackButton = tg.BackButton;
+      BackButton.show();
+      BackButton.onClick(function() {
+        tg.showAlert("Нет пути назад!");
+        BackButton.hide();
+      });
+      tg.onEvent('backButtonClicked', function() {
+          tg.Router.redirect('./');
+      });
   //   useEffect(() => {
   //     // Проверяем, что tg существует и является объектом
   //     if (tg && typeof tg.requestFullscreen === 'function') {
