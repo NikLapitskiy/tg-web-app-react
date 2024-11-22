@@ -1,8 +1,16 @@
+.menu-header{
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+}
+
 .menu-categories {
   display: flex; /* Используем Flexbox для выравнивания кнопок горизонтально */
   overflow-x: auto; /* Позволяем прокручивать содержимое по горизонтали */
   white-space: nowrap; /* Запрещаем перенос строк, чтобы кнопки оставались в одной строке */
-  padding: 10px; /* Отступы вокруг категорий */
+  padding: 5px; /* Отступы вокруг категорий */
   scrollbar-width: thin; /* Уменьшаем ширину полосы прокрутки (для Firefox) */
 }
 
@@ -60,20 +68,19 @@
   }
 
   .menu {
-    position: relative;
+    position: relative; /* Позволяет элементам внутри позиционироваться относительно него */
     padding: 20px;
 }
 
 .open-modal-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    cursor: pointer;
-    border: none;
-    background: none;
-    outline: none;
+  background: transparent; /* Прозрачный фон, чтобы кнопка выглядела как иконка */
+  border: none; /* Убираем стандартные границы кнопки */
+  cursor: pointer; /* Указатель при наведении на кнопку */
+  z-index: 1000; /* Обеспечивает, что кнопка будет поверх других элементов */
+  outline: none;
 }
+
+
 
 .open-modal-button svg {
   width: 24px;

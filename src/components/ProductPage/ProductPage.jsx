@@ -2,34 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+const API_BASE_URL = 'http://localhost:8000';
+
 const ProductPage = ({ onAddToCart }) => {
   const { id } = useParams(); // Получаем id товара из URL
-  const [product, setProduct] = useState(null);
+  const [item, setItem] = useState(null);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchItem = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/menu/${id}`); // Получаем данные о товаре по id
-        setProduct(response.data);
+        const data = await response.data;
+        setItem(data);
       } catch (error) {
         console.error('Ошибка при загрузке товара:', error);
       }
     };
 
-    fetchProduct();
-  }, [id]);
+    fetchItem();
+  }, {});
 
-  if (!product) {
+  if (!item) {
     return <div>Загрузка...</div>; // Показать загрузку, пока данные не загружены
   }
 
   return (
     <div className="product-page">
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <span>{product.price} ₽</span>
-      {product.image && <img src={product.image} alt={product.name} />}
-      <button onClick={() => onAddToCart(product)}>Добавить в корзину</button>
+      <h1>{item.menu_id}</h1>
+      <h1>{item.item_name}</h1>
+      <span>{item.price} ₽</span>
+      <button onClick={() => onAddToCart(item)}>Добавить в корзину</button>
     </div>
   );
 };

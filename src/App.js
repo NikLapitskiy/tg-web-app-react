@@ -52,9 +52,14 @@ function App() {
     useEffect(() => {
       tg.ready();
     }, [tg])
-    useEffect(() => {
-      if (tg) tg.requestFullscreen();
-    }, [tg])
+  //   useEffect(() => {
+  //     // Проверяем, что tg существует и является объектом
+  //     if (tg && typeof tg.requestFullscreen === 'function') {
+  //         tg.requestFullscreen();
+  //     } else {
+  //         console.log('Не в Telegram или tg не определён.');
+  //     }
+  // }, [tg]);
     return (
       <TelegramWebApp validateHash={validateHash}>
         <Provider>
