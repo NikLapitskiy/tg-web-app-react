@@ -51,39 +51,30 @@ function App() {
     const {tg} = useTelegram();
     const navigate = useNavigate();
     const location = useLocation();
-    const [tgWebApp, setTgWebApp] = useState(null);
 
     useEffect(() => {
       try{
-        setTgWebApp(tg);
-
-        const handleBackButtonClick = () => {
+        tg.BackButton.onClick(() => {
           navigate(-1);
-        };
-    
-        tg.BackButton.onClick(handleBackButtonClick);
-    
-        // return () => {
-        //   tg.BackButton.offClick(handleBackButtonClick);
-        // };
+        });
       } catch (err){
         console.log(err);
       }
-    }, [navigate]);
+    }, [tg, navigate]);
   
     useEffect(() => {
       try{
-        if (tgWebApp) {
+        if (tg) {
           if (location.pathname === '/') {
-            tgWebApp.BackButton.hide();
+            tg.BackButton.hide();
           } else {
-            tgWebApp.BackButton.show();
+            tg.BackButton.show();
           }
         }
       } catch(err){
         console.log(err);
       }
-    }, [tgWebApp, location.pathname]);
+    }, [tg, location.pathname]);
 
     useEffect(() => {
       if (tg) {
