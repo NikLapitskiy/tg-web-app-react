@@ -50,20 +50,22 @@ function App() {
   // };
     const {tg} = useTelegram();
     const navigate = useNavigate();
-  const location = useLocation();
-    const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
+    const location = useLocation();
+    const [tgWebApp, setTgWebApp] = useState(null);
 
     useEffect(() => {
       try{
+        setTgWebApp(tg);
+
         const handleBackButtonClick = () => {
           navigate(-1);
         };
     
         tg.BackButton.onClick(handleBackButtonClick);
     
-        return () => {
-          tg.BackButton.offClick(handleBackButtonClick);
-        };
+        // return () => {
+        //   tg.BackButton.offClick(handleBackButtonClick);
+        // };
       } catch (err){
         console.log(err);
       }
