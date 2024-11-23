@@ -1,7 +1,7 @@
 import './App.css';
 import { TelegramWebApp } from "react-telegram-webapp";
 import { Provider } from "use-http";
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { useTelegram } from 'telegram-web-app';
 import {useTelegram} from './hooks/useTelegram'
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -9,7 +9,7 @@ import Menu from './components/Menu/Menu';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 // import Navbar from './components/Navbar/Navbar';
-import BackButton from './components/BackButton/BackButton';
+// import BackButton from './components/BackButton/BackButton';
 import Cart from './components/Cart/Cart';
 import ProductPage from './components/ProductPage/ProductPage';
 import { useNavigate } from 'react-router-dom';
@@ -50,22 +50,36 @@ function App() {
   // };
     const {tg} = useTelegram();
     const navigate = useNavigate();
-  
+    const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
+
     useEffect(() => {
       try{
-        if(window.location.pathname === '/'){
-          tg.BackButton.hide();
-        }
-        else{
-          tg.BackButton.show();
-          tg.BackButton.onClick(() => {
+        // Set the back button event handler
+          const handleBackButtonClick = () => {
             navigate(-1);
-          })
-        }
+          };
+          tg.BackButton.onClick(handleBackButtonClick);
+
+          // Show the back button when navigating away from the home page
+          const handleLocationChange = () => {
+            setIsBackButtonVisible(window.location.pathname !== '/');
+            if (window.location.pathname !== '/') {
+              tg.BackButton.show();
+            } else {
+              tg.BackButton.hide();
+            }
+          };
+          window.addEventListener('popstate', handleLocationChange);
+
+          // Clean up the event listener when the component unmounts
+          return () => {
+            tg.BackButton.offClick(handleBackButtonClick);
+            window.removeEventListener('popstate', handleLocationChange);
+          };
       } catch (err){
         console.log(err);
       }
-    }, [tg]);
+    }, [navigate]);
   
 
     useEffect(() => {
