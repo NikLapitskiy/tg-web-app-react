@@ -1,8 +1,9 @@
 import React from 'react';
 import BackButton from '../BackButton/BackButton';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-  
+
   const handleBackClick = () => {
     navigate(-1); 
   }
