@@ -49,36 +49,6 @@ function App() {
   //   },
   // };
     const {tg} = useTelegram();
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    useEffect(() => {
-      try{
-
-        const handleBackButtonClick = () => {
-          navigate('/');
-        };
-    
-        tg.onEvent('backButtonClicked', handleBackButtonClick);
-        console.log('Обработчик события "backButtonClicked" установлен!');
-    
-        return () => {
-          tg.offEvent('backButtonClicked', handleBackButtonClick);
-          console.log('Обработчик события "backButtonClicked" удалён!');
-        };
-      } catch (err){
-        console.log(err);
-      }
-    }, [navigate]);
-
-    useEffect(() => {
-
-      if (location.pathname === '/') {
-        tg.BackButton.hide();
-      } else {
-        tg.BackButton.show();
-      }
-    }, [location.pathname]);
 
     useEffect(() => {
       if (tg) {

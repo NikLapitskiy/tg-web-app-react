@@ -1,19 +1,42 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { useNavigate , useLocation} from 'react-router-dom';
+import { useTelegram } from '../../hooks/useTelegram';
 
-const BackButton = () => {
+const BackButton = ({onClick}) => {
+    const {tg} = useTelegram();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleBackClick = () => {
-        // Возвращаемся на предыдущую страницу
-        navigate(-1);
-    };
+    useEffect(() => {
+      try{
+        if (!tg || !tg.BackButton) {
+            console.error('Telegram WebApp не доступен');
+            return;
+          }
 
-    return (
-        <button className="back-button" onClick={handleBackClick}>
-            Назад
-        </button>
-    );
+        const handleBackButtonClick = () => {
+          navigate(-1);
+        };
+    
+        tg.onEvent('backButtonClicked', handleBackButtonClick);
+        console.log('Обработчик события "backButtonClicked" установлен!');
+    
+        return () => {
+          tg.offEvent('backButtonClicked', handleBackButtonClick);
+          console.log('Обработчик события "backButtonClicked" удалён!');
+        };
+      } catch (err){
+        console.log(err);
+      }
+    }, [navigate]);
+
+    useEffect(() => {
+      if (location.pathname === '/') {
+        tg.BackButton.hide();
+      } else {
+        tg.BackButton.show();
+      }
+    }, [location.pathname]);
 };
 
 export default BackButton;
