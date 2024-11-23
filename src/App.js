@@ -56,10 +56,12 @@ function App() {
         if(window.location.pathname === '/'){
           tg.BackButton.hide();
         }
-        tg.BackButton.show();
-        tg.BackButton.onClick(() => {
-          navigate.goBack();
-        })
+        else{
+          tg.BackButton.show();
+          tg.BackButton.onClick(() => {
+            navigate(-1);
+          })
+        }
       } catch (err){
         console.log(err);
       }
