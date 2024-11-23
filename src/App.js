@@ -54,29 +54,29 @@ function App() {
 
     useEffect(() => {
       try{
-
         const handleBackButtonClick = () => {
-          navigate(-1);
+          // Пример перехода на другую страницу
+          navigate('/'); // Переход на '/another-page'
         };
-
-        tg.backButton.onClick('backButtonClicked', handleBackButtonClick);
-
-        if (tg) {
-          if (location.pathname === '/') {
-            tg.backButton.hide();
-          } else {
-            tg.backButton.show();
-          }
-        }
-
+    
+        tg.BackButton.onClick(handleBackButtonClick);
+    
         return () => {
-          tg.backButton.offClick('backButtonClicked', handleBackButtonClick);
-        }
-        
+          tg.BackButton.offClick(handleBackButtonClick);
+        };
       } catch (err){
         console.log(err);
       }
-    }, [navigate, location.pathname]);
+    }, [navigate]);
+
+    useEffect(() => {
+
+      if (location.pathname === '/') {
+        tg.BackButton.hide();
+      } else {
+        tg.BackButton.show();
+      }
+    }, [location.pathname]);
 
     useEffect(() => {
       if (tg) {
