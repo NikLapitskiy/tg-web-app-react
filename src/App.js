@@ -49,18 +49,27 @@ function App() {
   //   },
   // };
     const {tg} = useTelegram();
-    const navigate = useNavigate();
+    let navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
       try{
-        tg.BackButton.onClick(() => {
+
+        const handleBackButtonClick = () => {
           navigate(-1);
-        });
+        };
+
+        if(tg && tg.BackButton){
+          tg.BackButton.onClick(handleBackButtonClick);
+        }
+
+        if(tg && tg.BackButton){
+          tg.BackButton.offClick(handleBackButtonClick);
+        }
       } catch (err){
         console.log(err);
       }
-    }, [tg, navigate]);
+    }, [navigate]);
   
     useEffect(() => {
       try{
