@@ -12,6 +12,7 @@ import Settings from './components/Settings/Settings';
 import BackButton from './components/BackButton/BackButton';
 import Cart from './components/Cart/Cart';
 import ProductPage from './components/ProductPage/ProductPage';
+import { useNavigate } from 'react-router-dom';
 // import {
 //   UserContext as Context,
 //   useUserContext as useContext,
@@ -48,6 +49,22 @@ function App() {
   //   },
   // };
     const {tg} = useTelegram();
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      try{
+        if(window.location.pathname === '/'){
+          tg.BackButton.hide();
+        }
+        tg.BackButton.show();
+        tg.BackButton.onClick(() => {
+          navigate.goBack();
+        })
+      } catch (err){
+        console.log(err);
+      }
+    }, [tg]);
+  
 
     useEffect(() => {
       if (tg) {
