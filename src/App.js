@@ -54,15 +54,17 @@ function App() {
 
     useEffect(() => {
       try{
+
         const handleBackButtonClick = () => {
-          // Пример перехода на другую страницу
-          navigate('/'); // Переход на '/another-page'
+          navigate('/');
         };
     
-        tg.BackButton.onClick(handleBackButtonClick);
+        tg.onEvent('backButtonClicked', handleBackButtonClick);
+        console.log('Обработчик события "backButtonClicked" установлен!');
     
         return () => {
-          tg.BackButton.offClick(handleBackButtonClick);
+          tg.offEvent('backButtonClicked', handleBackButtonClick);
+          console.log('Обработчик события "backButtonClicked" удалён!');
         };
       } catch (err){
         console.log(err);
