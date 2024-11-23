@@ -49,7 +49,7 @@ function App() {
   //   },
   // };
     const {tg} = useTelegram();
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
@@ -59,20 +59,8 @@ function App() {
           navigate(-1);
         };
 
-        if(tg && tg.BackButton){
-          tg.BackButton.onClick(handleBackButtonClick);
-        }
+        tg.BackButton.onClick(handleBackButtonClick);
 
-        if(tg && tg.BackButton){
-          tg.BackButton.offClick(handleBackButtonClick);
-        }
-      } catch (err){
-        console.log(err);
-      }
-    }, [navigate]);
-  
-    useEffect(() => {
-      try{
         if (tg) {
           if (location.pathname === '/') {
             tg.BackButton.hide();
@@ -80,10 +68,15 @@ function App() {
             tg.BackButton.show();
           }
         }
-      } catch(err){
+
+        return () => {
+          tg.BackButton.offClick(handleBackButtonClick);
+        }
+        
+      } catch (err){
         console.log(err);
       }
-    }, [tg, location.pathname]);
+    }, [navigate, location.pathname]);
 
     useEffect(() => {
       if (tg) {
