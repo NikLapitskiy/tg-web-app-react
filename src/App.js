@@ -53,23 +53,14 @@ function App() {
       tg.ready();
     }, [tg])
 
-      var BackButton = tg.BackButton;
-      BackButton.show();
-      BackButton.onClick(function() {
-        tg.showAlert("Нет пути назад!");
-        BackButton.hide();
-      });
-      tg.onEvent('backButtonClicked', function() {
-          tg.Router.redirect('./');
-      });
-  //   useEffect(() => {
-  //     // Проверяем, что tg существует и является объектом
-  //     if (tg && typeof tg.requestFullscreen === 'function') {
-  //         tg.requestFullscreen();
-  //     } else {
-  //         console.log('Не в Telegram или tg не определён.');
-  //     }
-  // }, [tg]);
+    useEffect(() => {
+      // Проверяем, что tg существует и является объектом
+      if (TelegramWebApp && typeof TelegramWebApp.requestFullscreen === 'function') {
+          TelegramWebApp.requestFullscreen();
+      } else {
+          console.log('Не в Telegram или tg не определён.');
+      }
+     }, [tg]);
     return (
       <TelegramWebApp validateHash={validateHash}>
         <Provider>
@@ -86,36 +77,3 @@ function App() {
 }
 
 export default App;
-
-              //   <Router>
-              //   <div className="app">
-              //     <Routes>
-              //       <Route index element={<Menu />} />
-              //       <Route path="/menu" element={<Menu />} />
-              //       <Route path="/profile" element={<Profile />} />
-              //       <Route path="/settings" element={<Settings />} />
-              //     </Routes>
-              //     <Navbar />
-              //   </div>
-              // </Router>
-    // return (
-    //     <div className="App">
-    //         <Header />
-    //         <Routes>
-    //             <Route index element={<ProductList />}/>
-    //             <Route path={'form'} element={<Form />}/>
-    //         </Routes>
-    //     </div>
-    // );
-
-// import './App.css';
-// import {useEffect} from "react";
-// import {useTelegram} from "./hooks/useTelegram";
-// import Header from "./components/Header/Header";
-// import {Route, Routes} from 'react-router-dom'
-// import ProductList from "./components/ProductList/ProductList";
-// import Form from "./components/Form/Form";
-
-
-
-// export default App;
