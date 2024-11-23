@@ -73,17 +73,17 @@ function App() {
   
     useEffect(() => {
       try{
-        if (tg) {
+        if (tgWebApp) {
           if (location.pathname === '/') {
-            tg.BackButton.hide();
+            tgWebApp.BackButton.hide();
           } else {
-            tg.BackButton.show();
+            tgWebApp.BackButton.show();
           }
         }
       } catch(err){
         console.log(err);
       }
-    }, [tg, location.pathname]);
+    }, [tgWebApp, location.pathname]);
 
     useEffect(() => {
       if (tg) {
