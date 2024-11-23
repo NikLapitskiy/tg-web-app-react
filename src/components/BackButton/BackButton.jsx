@@ -18,17 +18,22 @@ const BackButton = ({onClick}) => {
           navigate(-1);
         };
     
-        tg.onEvent('backButtonClicked', handleBackButtonClick);
-        console.log('Обработчик события "backButtonClicked" установлен!');
+        tg.BackButton.onClick(() => {
+            console.log('Кнопка "Назад" нажата!');
+            onClick(); // Вызываем переданный обработчик
+          });
+
+        tg.BackButton.show();
     
         return () => {
-          tg.offEvent('backButtonClicked', handleBackButtonClick);
-          console.log('Обработчик события "backButtonClicked" удалён!');
+            tg.BackButton.offClick(onClick);
+            tg.BackButton.hide();
+            console.log('Обработчик кнопки "Назад" удалён и кнопка скрыта');
         };
       } catch (err){
         console.log(err);
       }
-    }, [navigate]);
+    }, [onClick]);
 
     useEffect(() => {
       if (location.pathname === '/') {
@@ -37,6 +42,8 @@ const BackButton = ({onClick}) => {
         tg.BackButton.show();
       }
     }, [location.pathname]);
+
+    return null;
 };
 
 export default BackButton;
