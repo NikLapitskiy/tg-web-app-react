@@ -59,18 +59,18 @@ function App() {
           navigate(-1);
         };
 
-        tg.BackButton.onClick(handleBackButtonClick);
+        tg.backButton.onClick('backButtonClicked', handleBackButtonClick);
 
         if (tg) {
           if (location.pathname === '/') {
-            tg.BackButton.hide();
+            tg.backButton.hide();
           } else {
-            tg.BackButton.show();
+            tg.backButton.show();
           }
         }
 
         return () => {
-          tg.BackButton.offClick(handleBackButtonClick);
+          tg.backButton.offClick('backButtonClicked', handleBackButtonClick);
         }
         
       } catch (err){
