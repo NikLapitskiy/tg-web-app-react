@@ -12,7 +12,7 @@ import Settings from './components/Settings/Settings';
 // import BackButton from './components/BackButton/BackButton';
 import Cart from './components/Cart/Cart';
 import ProductPage from './components/ProductPage/ProductPage';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 // import {
 //   UserContext as Context,
 //   useUserContext as useContext,
@@ -50,37 +50,38 @@ function App() {
   // };
     const {tg} = useTelegram();
     const navigate = useNavigate();
+  const location = useLocation();
     const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
 
     useEffect(() => {
       try{
-        // Set the back button event handler
-          const handleBackButtonClick = () => {
-            navigate(-1);
-          };
-          tg.BackButton.onClick(handleBackButtonClick);
-
-          // Show the back button when navigating away from the home page
-          const handleLocationChange = () => {
-            setIsBackButtonVisible(window.location.pathname !== '/');
-            if (window.location.pathname !== '/') {
-              tg.BackButton.show();
-            } else {
-              tg.BackButton.hide();
-            }
-          };
-          window.addEventListener('popstate', handleLocationChange);
-
-          // Clean up the event listener when the component unmounts
-          return () => {
-            tg.BackButton.offClick(handleBackButtonClick);
-            window.removeEventListener('popstate', handleLocationChange);
-          };
+        const handleBackButtonClick = () => {
+          navigate(-1);
+        };
+    
+        tg.BackButton.onClick(handleBackButtonClick);
+    
+        return () => {
+          tg.BackButton.offClick(handleBackButtonClick);
+        };
       } catch (err){
         console.log(err);
       }
     }, [navigate]);
   
+    useEffect(() => {
+      try{
+        if (tg) {
+          if (location.pathname === '/') {
+            tg.BackButton.hide();
+          } else {
+            tg.BackButton.show();
+          }
+        }
+      } catch(err){
+        console.log(err);
+      }
+    }, [tg, location.pathname]);
 
     useEffect(() => {
       if (tg) {
