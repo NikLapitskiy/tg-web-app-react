@@ -47,7 +47,9 @@ function App() {
   //     },
   //   },
   // };
-    const {tg} = useTelegram();
+    // const {tg} = useTelegram();
+
+    const tg = window.Telegram.WebApp;
 
     useEffect(() => {
       tg.ready();
@@ -55,8 +57,8 @@ function App() {
 
     useEffect(() => {
       // Проверяем, что tg существует и является объектом
-      if (TelegramWebApp && typeof TelegramWebApp.requestFullscreen === 'function') {
-          TelegramWebApp.requestFullscreen();
+      if (tg && typeof tg.requestFullscreen === 'function') {
+          tg.requestFullscreen();
       } else {
           console.log('Не в Telegram или tg не определён.');
       }
