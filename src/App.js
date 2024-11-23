@@ -47,22 +47,32 @@ function App() {
   //     },
   //   },
   // };
-    // const {tg} = useTelegram();
-
-    const tg = window.Telegram.WebApp;
+    const {tg} = useTelegram();
 
     useEffect(() => {
-      tg.ready();
+      if (tg) {
+        try {
+          tg.ready();
+        } catch (error) {
+          console.error('Error calling tgwebApp:', error);
+        }
+    } else {
+        console.log('Не в Telegram.');
+    }
     }, [tg])
 
     useEffect(() => {
-      // Проверяем, что tg существует и является объектом
       if (tg && typeof tg.requestFullscreen === 'function') {
-          tg.requestFullscreen();
+          try {
+            tg.requestFullscreen();
+          } catch (error) {
+            console.error('Error calling requestFullscreen:', error);
+          }
       } else {
-          console.log('Не в Telegram или tg не определён.');
+          console.log('Не в Telegram или метод requestFullscreen не поддерживается.');
       }
-     }, [tg]);
+  }, [tg]);
+
     return (
       <TelegramWebApp validateHash={validateHash}>
         <Provider>
