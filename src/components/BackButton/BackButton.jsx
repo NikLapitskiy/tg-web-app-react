@@ -31,7 +31,7 @@ const BackButton = ({onClick}) => {
       } catch (err){
         console.log(err);
       }
-    }, [onClick]);
+    }, [tg, onClick]);
 
     useEffect(() => {
       if (location.pathname === '/') {
@@ -39,7 +39,7 @@ const BackButton = ({onClick}) => {
       } else {
         tg.BackButton.show();
       }
-    }, [location.pathname]);
+    }, [tg, location.pathname]);
 
     return null;
 };
