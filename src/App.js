@@ -8,10 +8,10 @@ import Menu from './components/Menu/Menu';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 // import Navbar from './components/Navbar/Navbar';
-import BackButton from './components/BackButton/BackButton';
+// import BackButton from './components/BackButton/BackButton';
 import Cart from './components/Cart/Cart';
 import ProductPage from './components/ProductPage/ProductPage';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 // import {
 //   UserContext as Context,
@@ -52,6 +52,22 @@ function App() {
   // };
     const {tg} = useTelegram();
 
+    const backButton = Telegram.WebApp.BackButton;
+
+    if (window.location.search && window.location.pathname !== '/') {
+
+      backButton.show();
+
+    } else {
+
+      backButton.hide(); 
+
+    }
+
+    backButton.onClick(() => {
+      navigate(-1);
+    });
+
     useEffect(() => {
       if (tg) {
         try {
@@ -76,13 +92,8 @@ function App() {
       }
   }, [tg]);
 
-  const handleBackClick = () => {
-    navigate(-1);
-  }
-
     return (
       <TelegramWebApp validateHash={validateHash}>
-        <BackButton onClick={handleBackClick} />
           <Routes>
             <Route index element={<Menu />} />
             <Route path="/product/:id" element={<ProductPage  />} />
