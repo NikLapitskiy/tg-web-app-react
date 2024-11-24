@@ -14,16 +14,14 @@ const BackButton = ({onClick}) => {
             return;
           }
 
-        const handleBackButtonClick = () => {
-          navigate(-1);
-        };
+        // const handleBackButtonClick = () => {
+        //   navigate(-1);
+        // };
     
         tg.BackButton.onClick(() => {
             console.log('Кнопка "Назад" нажата!');
             onClick(); // Вызываем переданный обработчик
           });
-
-        tg.BackButton.show();
     
         return () => {
             tg.BackButton.offClick(onClick);

@@ -1,18 +1,18 @@
 import './App.css';
 import { TelegramWebApp } from "react-telegram-webapp";
-import { Provider } from "use-http";
 import React, { useState, useEffect } from 'react';
 // import { useTelegram } from 'telegram-web-app';
 import {useTelegram} from './hooks/useTelegram'
-import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {Route, Routes } from 'react-router-dom';
 import Menu from './components/Menu/Menu';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 // import Navbar from './components/Navbar/Navbar';
-// import BackButton from './components/BackButton/BackButton';
+import BackButton from './components/BackButton/BackButton';
 import Cart from './components/Cart/Cart';
 import ProductPage from './components/ProductPage/ProductPage';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
 // import {
 //   UserContext as Context,
 //   useUserContext as useContext,
@@ -28,6 +28,8 @@ async function validateHash() {
 
 
 function App() {
+
+  const navigate = useNavigate();
   // const dataUser = useContext();
 
   // const options = {
@@ -74,17 +76,21 @@ function App() {
       }
   }, [tg]);
 
+  const handleBackClick = () => {
+    navigate(-1);
+  }
+
     return (
       <TelegramWebApp validateHash={validateHash}>
-        <Provider>
-            <Routes>
-              <Route index element={<Menu />} />
-              <Route path="/product/:id" element={<ProductPage  />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/cart" element={<Cart />} />
-            </Routes>
-        </Provider>
+        <BackButton onClick={handleBackClick} />
+          <Routes>
+            <Route index element={<Menu />} />
+            <Route path="/product/:id" element={<ProductPage  />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+          <Navbar/>
       </TelegramWebApp>    
     );
 }
