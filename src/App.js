@@ -24,19 +24,19 @@ async function validateHash() {
 function App() {
 
   const navigate = useNavigate();
-    const {tg} = useTelegram();
+  const {tg} = useTelegram();
 
-    // const backButton = Telegram.WebApp.BackButton;
+    const backButton = Telegram.WebApp.BackButton;
 
-    // if (window.location.search && window.location.pathname !== '/') {
-    //   backButton.show();
-    // } else {
-    //   backButton.hide(); 
-    // }
+    if (window.location.search && window.location.pathname !== '/') {
+      backButton.show();
+    } else {
+      backButton.hide(); 
+    }
 
-    // backButton.onClick(() => {
-    //   navigate(-1);
-    // });
+    backButton.onClick(() => {
+      navigate(-1);
+    });
 
     useEffect(() => {
       if (tg) {
